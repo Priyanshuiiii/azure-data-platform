@@ -1,3 +1,3 @@
 
 # Databricks notebook source
-print("Bronze ingestion layer)
+print("Bronze ingestion layer")
