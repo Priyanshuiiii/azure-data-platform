@@ -1,0 +1,98 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "nag-adf-data-engineering-001"
+		},
+		"AzureDataLakeStorage1_servicePrincipalCredential": {
+			"type": "secureString",
+			"metadata": "Secure string for 'servicePrincipalCredential' of 'AzureDataLakeStorage1'"
+		},
+		"ls_databricks_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'ls_databricks'"
+		},
+		"ls_databricks_1_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'ls_databricks_1'"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://staccdataeng001.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_tenant": {
+			"type": "string",
+			"defaultValue": "6cfc6e26-e7d1-4604-bbcf-660a8106986d"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_servicePrincipalId": {
+			"type": "string",
+			"defaultValue": "8841e7af-9fe7-456a-b009-3be758d854fb"
+		},
+		"ls_databricks_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0519-062947-h1i9s5nm"
+		},
+		"ls_databricks_1_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0519-062947-h1i9s5nm"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "nag-adf-data-engineering-001_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureDataLakeStorage1_servicePrincipalCredential": {
+						"value": "[parameters('AzureDataLakeStorage1_servicePrincipalCredential')]"
+					},
+					"ls_databricks_accessToken": {
+						"value": "[parameters('ls_databricks_accessToken')]"
+					},
+					"ls_databricks_1_accessToken": {
+						"value": "[parameters('ls_databricks_1_accessToken')]"
+					},
+					"AzureDataLakeStorage1_properties_typeProperties_url": {
+						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_url')]"
+					},
+					"AzureDataLakeStorage1_properties_typeProperties_tenant": {
+						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_tenant')]"
+					},
+					"AzureDataLakeStorage1_properties_typeProperties_servicePrincipalId": {
+						"value": "[parameters('AzureDataLakeStorage1_properties_typeProperties_servicePrincipalId')]"
+					},
+					"ls_databricks_properties_typeProperties_existingClusterId": {
+						"value": "[parameters('ls_databricks_properties_typeProperties_existingClusterId')]"
+					},
+					"ls_databricks_1_properties_typeProperties_existingClusterId": {
+						"value": "[parameters('ls_databricks_1_properties_typeProperties_existingClusterId')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}

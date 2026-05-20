@@ -1,0 +1,39 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "nag-adf-data-engineering-001"
+		},
+		"AzureDataLakeStorage1_servicePrincipalCredential": {
+			"value": ""
+		},
+		"ls_databricks_accessToken": {
+			"value": ""
+		},
+		"ls_databricks_1_accessToken": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://staccdataeng001.dfs.core.windows.net/"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_tenant": {
+			"value": "6cfc6e26-e7d1-4604-bbcf-660a8106986d"
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_servicePrincipalId": {
+			"value": "8841e7af-9fe7-456a-b009-3be758d854fb"
+		},
+		"ls_databricks_properties_typeProperties_existingClusterId": {
+			"value": "0519-062947-h1i9s5nm"
+		},
+		"ls_databricks_1_properties_typeProperties_existingClusterId": {
+			"value": "0519-062947-h1i9s5nm"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
