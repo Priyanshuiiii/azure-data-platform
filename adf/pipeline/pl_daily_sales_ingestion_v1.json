@@ -238,7 +238,7 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"notebookPath": "/Repos/priyanshuforazure@gmail.com/azure-data-platform/notebooks/silver/transform_bronze_to_silver.py",
+					"notebookPath": "/Repos/priyanshuforazure@gmail.com/azure-data-platform/notebooks/silver/transform_bronze_to_silver",
 					"baseParameters": {
 						"env": "@pipeline().parameters.environment",
 						"run_date": "@pipeline().parameters.process_date"
