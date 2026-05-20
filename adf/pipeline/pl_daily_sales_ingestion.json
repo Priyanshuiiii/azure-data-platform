@@ -1,0 +1,210 @@
+{
+	"name": "pl_daily_sales_ingestion",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy_Landing_to_Raw",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFolderPath": "sales",
+							"wildcardFileName": "*.csv",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings",
+							"copyBehavior": "PreserveHierarchy"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "order_id",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "order_id",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "customer_id",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "customer_id",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "product",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "product",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "quantity",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "quantity",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "unit_price",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "unit_price",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "sale_date",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "sale_date",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "region",
+									"type": "String",
+									"physicalType": "String"
+								},
+								"sink": {
+									"name": "region",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_raw_sales_parquet",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "Run_Process_Sales_Notebook",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "Copy_Landing_to_Raw",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/priyanshuforazure@gmail.com/nb_process_sales",
+					"baseParameters": {
+						"file_path": {
+							"value": "@pipeline().parameters.file_path",
+							"type": "Expression"
+						},
+						"process_date": {
+							"value": "@pipeline().parameters.process_date",
+							"type": "Expression"
+						},
+						"environment": {
+							"value": "@pipeline().parameters.environment",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_databricks_1",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"parameters": {
+			"file_path": {
+				"type": "string",
+				"defaultValue": "sales/sales_2026-05-19.csv"
+			},
+			"process_date": {
+				"type": "string",
+				"defaultValue": "2026-05-19"
+			},
+			"environment": {
+				"type": "string",
+				"defaultValue": "Dev"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-05-19T10:09:12Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

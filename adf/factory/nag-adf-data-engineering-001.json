@@ -1,0 +1,15 @@
+{
+	"name": "nag-adf-data-engineering-001",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Enabled",
+			"editable": true
+		}
+	},
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "6fd9ab3c-500b-4751-85c0-fc2a206c3929",
+		"tenantId": "6cfc6e26-e7d1-4604-bbcf-660a8106986d"
+	}
+}
