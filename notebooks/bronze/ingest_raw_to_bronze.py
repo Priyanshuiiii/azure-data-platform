@@ -1,8 +1,18 @@
-
 # Databricks notebook source
-print("Bronze ingestion layer")
 
+from pyspark.sql import functions as F
+from datetime import datetime
+
+# Parameters
+dbutils.widgets.text("env", "dev")
+env = dbutils.widgets.get("env")
+
+print(f"Running Bronze pipeline in {env}")
+
+# Simulate raw ingestion
 df = spark.range(10)
-display(df)
 
-print("commit test")
+df = df.withColumn("ingestion_time", F.current_timestamp())
+
+display(df)
+``
