@@ -248,6 +248,36 @@
 					"referenceName": "ls_databricks_1",
 					"type": "LinkedServiceReference"
 				}
+			},
+			{
+				"name": "Run_Gold_Notebook",
+				"type": "DatabricksNotebook",
+				"dependsOn": [
+					{
+						"activity": "Run_Silver_Notebook",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Repos/priyanshuforazure@gmail.com/azure-data-platform/notebooks/gold/build_gold_aggregations",
+					"baseParameters": {
+						"env": "@pipeline().parameters.environment"
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "ls_databricks_1",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"parameters": {
