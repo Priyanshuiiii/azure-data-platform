@@ -1,5 +1,4 @@
 # Databricks notebook source
-
 from pyspark.sql import functions as F
 from datetime import datetime
 
@@ -15,4 +14,3 @@ df = spark.range(10)
 df = df.withColumn("ingestion_time", F.current_timestamp())
 
 display(df)
-``
