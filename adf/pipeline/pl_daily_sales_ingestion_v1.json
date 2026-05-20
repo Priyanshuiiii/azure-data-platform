@@ -1,5 +1,5 @@
 {
-	"name": "pl_daily_sales_ingestion",
+	"name": "pl_daily_sales_ingestion_v1",
 	"properties": {
 		"activities": [
 			{
