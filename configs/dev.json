@@ -1,0 +1,5 @@
+{
+  "env": "dev",
+  "storage_path": "/mnt/dev-data",
+  "database": "dev_db"
+}
